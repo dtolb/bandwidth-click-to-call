@@ -1,7 +1,11 @@
 <div align="center">
+
 # bandwidth-click-to-call
+
 <img src="https://s3.amazonaws.com/bwdemos/BW_Voice.png"/>
+
 Super simple app to create calls on request using Node and [Express](https://expressjs.com/)
+
 </div>
 
 ## Prerequisites
