@@ -4,31 +4,33 @@ const express    = require('express');
 const bodyParser = require('body-parser');
 let app          = express();
 const http       = require('http').Server(app);
+
+/* Config variables */
 const {creds, salesPhoneNumber, bandwidthPhoneNumber} = require('./config.js');
+
+/* new SDK */
+const bw = new Bandwidth(creds);
 
 /* Paths */
 const INCOMING_CALL = '/incoming-call-endpoint';
-const IVR_CHOICE    = '/ivr-choice-endpoint';
-const CREATE_CALL = '/createCall';
+const CREATE_CALL   = '/createCall';
 
-const bw = new Bandwidth(creds);
-
+/* Event Handlers */
 const handleCreateCall = async (req, res) => {
     const baseUrl = `http://${req.hostname}`;
     const callbackUrl = baseUrl + INCOMING_CALL;
     const callParameters = {
-        to: salesPhoneNumber,
-        from: bandwidthPhoneNumber,
-        callbackUrl: callbackUrl,
-        tag: req.body.customerNumber,
-        callbackHttpMethod: 'GET'
+        to                 : salesPhoneNumber,
+        from               : bandwidthPhoneNumber,
+        callbackUrl        : callbackUrl,
+        tag                : req.body.customerNumber,
+        callbackHttpMethod : 'GET'
     }
+    /* create the call to bandwidth */
     const call = await bw.Call.create(callParameters);
     res.status(201).send(call);
 }
 
-
-/* Event Handlers */
 const handleIncomingCall = (req, res) => {
     // We only care about answer events
     if (req.query.eventType !== 'answer') {
