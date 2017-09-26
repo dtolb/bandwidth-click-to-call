@@ -56,6 +56,18 @@ You'll see the terminal show you information
 
 ![ngrok terminal](https://s3.amazonaws.com/bw-demo/ngrok_terminal.png)
 
+## Run the application
+
+Once you have all your [environment variables](#setup-environment-variables) set.
+
+```bash
+npm install
+```
+
+```bash
+node index.js
+```
+
 ## Create Your first call
 
 Create a `POST` request to `http://your_ngrok.ngrok.io/createCall`
@@ -90,7 +102,7 @@ The app will call the `SALES_PHONE_NUBMER` and when that number answers, will fo
 ### Demo Curl
 
 ```bash
-curl -v -X http://8a543f5f.ngrok.io/createCall \
+curl -v -X POST http://8a543f5f.ngrok.io/createCall \
 	-H "Content-type: application/json" \
 	-d \
 	'

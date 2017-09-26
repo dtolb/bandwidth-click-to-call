@@ -30,6 +30,11 @@ const handleCreateCall = async (req, res) => {
 
 /* Event Handlers */
 const handleIncomingCall = (req, res) => {
+    // We only care about answer events
+    if (req.query.eventType !== 'answer') {
+        res.sendStatus(200);
+        return;
+    }
     const sentence = 'Hello, we are transferring your call to the customer';
     const bxml = `<?xml version="1.0" encoding="UTF-8"?>
 <Response>
