@@ -1,0 +1,30 @@
+{
+  "name": "bandwidth-click-to-call",
+  "version": "0.0.1",
+  "description": "accepts post request to create a call",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dtolb/bandwidth-click-to-call.git"
+  },
+  "keywords": [
+    "node",
+    "bandwidth",
+    "click-to-call",
+    "catapult"
+  ],
+  "author": "Dan Tolbert",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dtolb/bandwidth-click-to-call/issues"
+  },
+  "homepage": "https://github.com/dtolb/bandwidth-click-to-call#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.15.5",
+    "node-bandwidth": "^2.4.0"
+  }
+}
