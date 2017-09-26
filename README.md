@@ -27,7 +27,7 @@ Super simple app to create calls on request using Node and [Express](https://exp
 | `SALES_PHONE_NUBMER`     | Phone number of the sales rep in E.164 format                                                                             | `+19197771111`         |
 | `BANDWIDTH_PHONE_NUMBER` | [Bandwidth Phone Number](http://dev.bandwidth.com/howto/buytn.html) to create calls to the sales rep **AND** the customer | `+17041234444`         |
 
-👉 👉 You can also set all these in `config.js` 👈 👈
+👉 👉 You can also set all these in [`config.js`](https://github.com/dtolb/bandwidth-click-to-call/blob/master/config.js) 👈 👈
 
 ```js
 module.exports = {
