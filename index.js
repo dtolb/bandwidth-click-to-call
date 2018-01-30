@@ -12,13 +12,13 @@ const {creds, salesPhoneNumber, bandwidthPhoneNumber} = require('./config.js');
 const bw = new Bandwidth(creds);
 
 /* Paths */
-const INCOMING_CALL = '/incoming-call-endpoint';
+const OUTBOUND_CALL_EVENTS = '/outbound-call-events';
 const CREATE_CALL   = '/createCall';
 
 /* Event Handlers */
 const handleCreateCall = async (req, res) => {
     const baseUrl = `http://${req.hostname}`;
-    const callbackUrl = baseUrl + INCOMING_CALL;
+    const callbackUrl = baseUrl + OUTBOUND_CALL_EVENTS;
     const callParameters = {
         to                 : salesPhoneNumber,
         from               : bandwidthPhoneNumber,
@@ -48,13 +48,31 @@ const handleIncomingCall = (req, res) => {
 };
 
 
+const handleIncomingCallUsingSDK = (req, res) => {
+    // We only care about answer events
+    if (req.query.eventType !== 'answer') {
+        res.sendStatus(200);
+        return;
+    }
+    const sentence = 'Hello, we are transferring your call to the customer';
+    let bxml = new Bandwidth.BXMLResponse();
+    bxml.speakSentence(sentence)
+        .transfer({
+            transferTo: req.query.tag
+        });
+
+    res.send(bxml.toString());
+};
+
+
 /* Express Setup */
 app.use(bodyParser.json());
 app.set('port', (process.env.PORT || 3000));
 
 app.get('/', (req, res) => {res.send("Hello World")})
 app.post(CREATE_CALL, handleCreateCall);
-app.get(INCOMING_CALL, handleIncomingCall);
+app.get(OUTBOUND_CALL_EVENTS, handleIncomingCall);
+//app.get(OUTBOUND_CALL_EVENTS, handleIncomingCallUsingSDK);
 
 /* Launch the Server */
 http.listen(app.get('port'), function(){
