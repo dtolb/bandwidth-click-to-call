@@ -31,7 +31,7 @@ const handleCreateCall = async (req, res) => {
     res.status(201).send(call);
 }
 
-const handleIncomingCall = (req, res) => {
+const handleAnswerEvent = (req, res) => {
     // We only care about answer events
     if (req.query.eventType !== 'answer') {
         res.sendStatus(200);
@@ -48,7 +48,7 @@ const handleIncomingCall = (req, res) => {
 };
 
 
-const handleIncomingCallUsingSDK = (req, res) => {
+const handleAnswerEventUsingSDK = (req, res) => {
     // We only care about answer events
     if (req.query.eventType !== 'answer') {
         res.sendStatus(200);
@@ -71,7 +71,7 @@ app.set('port', (process.env.PORT || 3000));
 
 app.get('/', (req, res) => {res.send("Hello World")})
 app.post(CREATE_CALL, handleCreateCall);
-app.get(OUTBOUND_CALL_EVENTS, handleIncomingCall);
+app.get(OUTBOUND_CALL_EVENTS, handleAnswerEvent);
 //app.get(OUTBOUND_CALL_EVENTS, handleIncomingCallUsingSDK);
 
 /* Launch the Server */
