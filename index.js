@@ -48,6 +48,20 @@ const handleIncomingCall = (req, res) => {
 };
 
 
+/* Bandwidth functions */
+
+const getNewNumber = (areaCode) => {
+    // Order number from bandwidth
+    const numbers = await bwApi.AvailableNumber.search('local', {
+        areaCode: areaCode
+        quantity : 1
+    });
+
+    const newNumber = await bwApi.PhoneNumber.create({
+        number : numbers[0].number;
+        name: `${req.hostname}-click-to-call`
+    });
+
 /* Express Setup */
 app.use(bodyParser.json());
 app.set('port', (process.env.PORT || 3000));
